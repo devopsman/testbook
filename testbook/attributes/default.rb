@@ -1,0 +1,10 @@
+default['jenkins']['master']['install_method'] = 'war'
+default['java']['jdk_version'] = '7'
+default['java']['install_flavor'] = 'openjdk'
+default['hostname'] = 'lamptest'
+default['hostname_cookbook']['hostsfile_ip'] = '10.10.10.10'
+default['hostname_cookbook']['hostsfile_aliases'] = 'lamptest'
+default['set_fqdn'] = 'lamptest'
+default['apache']['listen'] = ['*:8888']
+default['nginx']['ssl_certificate'] = '/etc/nginx/ssl/server.crt' 
+default['nginx']['ssl_certificate_key'] = '/etc/nginx/ssl/server.key'
