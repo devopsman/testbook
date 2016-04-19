@@ -1,68 +1,34 @@
 testbook Cookbook
 =================
-TODO: Enter the cookbook description here.
 
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+Cookbook prepares:
 
-Requirements
-------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+* Apache2 + mod_php (listens on port 8888)
+* Tomcat 8 + jenkins.war (listens on port 8080)
+* Nginx as reverse proxy for both Apache and Tomcat (listens on port 80)
+* Ports 8080 and 8888 restricted by iptables to listen on localhost only
 
-e.g.
-#### packages
-- `toaster` - testbook needs toaster to brown your bagel.
 
-Attributes
-----------
-TODO: List your cookbook attributes here.
+Pre-requisites to install/test:
 
-e.g.
-#### testbook::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['testbook']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
+* Install vagrant 1.8.1(some older versions could work well too)
+* Install virtualbox 5.0
+* Add **10.10.10.10 lamptest** record to /etc/hosts file on your host system
+* Clone repository to your home directory:
 
-Usage
------
-#### testbook::default
-TODO: Write usage instructions for each cookbook.
+  $ cd ~ && git clone https://github.com/devopsman/testbook
 
-e.g.
-Just include `testbook` in your node's `run_list`:
+* Change to directory with repository, create cookbooks dir and run vagrant VM:
 
-```json
-{
-  "name":"my_node",
-  "run_list": [
-    "recipe[testbook]"
-  ]
-}
-```
+  $ cd ~/testbook && mkdir cookbooks && vagrant up
 
-Contributing
-------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
+* After VM started and provisioned, check VM by testing next URLs:
+ - https://lamptest - should be showing phpinfo.php as default index page
+ - http://lamptest - should redirect to ssl site above
+ - https://lamptest/jenkins - to access Jenkins page
 
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write your change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
 
-License and Authors
--------------------
-Authors: TODO: List authors
+Testing cookbook - foodcritic tests passed.
+
+* $ gem install foodcritic
+* $ foodcritic testbook
